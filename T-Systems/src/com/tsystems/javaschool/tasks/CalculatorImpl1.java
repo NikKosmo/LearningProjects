@@ -1,5 +1,7 @@
 package com.tsystems.javaschool.tasks;
 
+//this version of calculator sucks
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
