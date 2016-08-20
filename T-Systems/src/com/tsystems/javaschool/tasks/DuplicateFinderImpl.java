@@ -16,7 +16,7 @@ public class DuplicateFinderImpl implements DuplicateFinder {
     public DuplicateFinderImpl() {
 	map = new TreeMap<>();
     }
-
+ 
     public static void main(String[] args) {
 	DuplicateFinder d = new DuplicateFinderImpl();
 	System.out.println(d.process(new File("a.txt"), new File("b.txt")));
