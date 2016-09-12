@@ -2,11 +2,11 @@ package ts;
 
 import java.util.Arrays;
 
-public class Tester {
+public class SubsequenceTester {
 
     public static void main(String[] args) {
 	// TODO Auto-generated method stub
-	Tester tester = new Tester();
+	SubsequenceTester tester = new SubsequenceTester();
 	tester.testSubsequenceImpl();
 
     }
