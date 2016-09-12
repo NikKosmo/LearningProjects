@@ -1,4 +1,4 @@
-package com.tsystems.javaschool.tasks;
+package ts;
 
 /*this class lets you check, if 
  * one subsequence contains another subsequence 

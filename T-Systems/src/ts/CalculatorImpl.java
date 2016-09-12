@@ -1,4 +1,4 @@
-package com.tsystems.javaschool.tasks;
+package ts;
 
 /*
  * this class implements shunting-yard algorithm

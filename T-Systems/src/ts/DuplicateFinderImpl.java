@@ -1,4 +1,4 @@
-package com.tsystems.javaschool.tasks;
+package ts;
 
 /*this class read file, then it adds unique lines and their quantity to another file
  * if there was no output file, it creates new, then adds same info in it

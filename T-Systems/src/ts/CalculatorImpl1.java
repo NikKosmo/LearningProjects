@@ -1,4 +1,4 @@
-package com.tsystems.javaschool.tasks;
+package ts;
 
 //this version of calculator sucks
 

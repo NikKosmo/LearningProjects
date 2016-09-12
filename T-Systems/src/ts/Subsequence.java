@@ -1,7 +1,7 @@
 /**
  * Java School at T-Systems CIS, 2012
  */
-package com.tsystems.javaschool.tasks;
+package ts;
 
 import java.util.List;
 

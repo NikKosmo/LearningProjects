@@ -1,4 +1,4 @@
-package com.tsystems.javaschool.tasks;
+package ts;
 
 import java.util.Arrays;
 
