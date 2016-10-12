@@ -36,12 +36,12 @@ public class CalculatorImpl implements Calculator {
     }
 
     // check if token is operator
-    private static boolean isOperator(String token) {
+    private boolean isOperator(String token) {
 	return OPERATORS.containsKey(token);
     }
 
     // compare precedence of operators
-    private static final int cmpPrecedence(String token1, String token2) {
+    private final int comparePrecedence(String token1, String token2) {
 	return OPERATORS.get(token1) - OPERATORS.get(token2);
     }
 
@@ -49,10 +49,10 @@ public class CalculatorImpl implements Calculator {
 
 	// Read from console, save it to String
 	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-	String str = br.readLine();
+	String input = br.readLine();
 
 	Calculator c = new CalculatorImpl();
-	System.out.println(c.evaluate(str));
+	System.out.println(c.evaluate(input));
 
     }
 
@@ -61,11 +61,11 @@ public class CalculatorImpl implements Calculator {
 	String answer = null;
 
 	try {
-	    String[] input = statement.split("(?<=[\\-+*/=()])|(?=[()\\-+*/=])");
+	    String[] input = splitInput(statement);
 	    String[] inputRPN = convertToRPN(input);
-	    double result = RPNtoDouble(inputRPN);
-	    
-	    //round result if needed
+	    double result = calculateRPN(inputRPN);
+
+	    // round result if needed
 	    answer = String.valueOf(new BigDecimal(result).setScale(4, RoundingMode.DOWN).doubleValue());
 	} catch (Exception e) {
 	    System.out.println(e);
@@ -74,16 +74,25 @@ public class CalculatorImpl implements Calculator {
 
 	return answer;
     }
+    
+    private String[] splitInput(String input) {
+	
+	// TO DO:
+	// transform ("-" + "n") to "-n"
+	// transform (")" + "n") to ")*n" same for ("(" + "n")
+	
+	return input.split("(?<=[\\-+*/=()])|(?=[()\\-+*/=])");
+    }
 
     // convert from infix to RPN
-    public static String[] convertToRPN(String[] inputTokens) {
+    private String[] convertToRPN(String[] inputTokens) {
 	ArrayList<String> out = new ArrayList<String>();
 	Stack<String> stack = new Stack<String>();
 
 	for (String token : inputTokens) {
 	    if (isOperator(token)) {
 		while (!stack.empty() && isOperator(stack.peek())) {
-		    if (cmpPrecedence(token, stack.peek()) <= 0) {
+		    if (comparePrecedence(token, stack.peek()) <= 0) {
 			out.add(stack.pop());
 			continue;
 		    }
@@ -116,7 +125,7 @@ public class CalculatorImpl implements Calculator {
 	return out.toArray(output);
     }
 
-    public static double RPNtoDouble(String[] tokens) throws ArithmeticException, NumberFormatException {
+    private double calculateRPN(String[] tokens) throws ArithmeticException, NumberFormatException {
 	Stack<String> stack = new Stack<String>();
 
 	// For each token
@@ -128,28 +137,30 @@ public class CalculatorImpl implements Calculator {
 		// Token is an operator: pop top two entries
 		Double d2 = Double.valueOf(stack.pop());
 		Double d1 = Double.valueOf(stack.pop());
-		
-		stack.push(String.valueOf(calculate(d1, d2, token)));
+
+		stack.push(String.valueOf(calculateSimple(d1, d2, token)));
 	    }
 	}
 
 	return Double.valueOf(stack.pop());
     }
-    
-    private static double calculateSimple(double d1, double d2, String sign) {
-	switch (sign) {
-	case "*":
+
+    private double calculateSimple(double d1, double d2, String sign) throws ArithmeticException {
+	if (sign.charAt(0) == '*') {
 	    return d1 * d2;
-	case "/":
+	} else if (sign.charAt(0) == '/') {
 	    if (d2 == 0)
 		throw new ArithmeticException();
 	    return d1 / d2;
-	case "+":
+	} else if (sign.charAt(0) == '+') {
 	    return d1 + d2;
-	case "-":
+	} else if (sign.charAt(0) == '-') {
 	    return d1 - d2;
+	} else {
+	    // this statement will never be reached
+	    return 0.0;
 	}
-	return 0/0;
+
     }
 
 }
