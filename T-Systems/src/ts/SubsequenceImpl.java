@@ -20,29 +20,23 @@ public class SubsequenceImpl implements Subsequence {
     @Override
     public boolean find(List x, List y) {
 
-	// check if List y contains set of elements from List x
-	// this check can be removed, rightOrderCheck works fine by itself
-	if (y.containsAll(x)) {
-	    // check if they in the right order
 	    return rightOrderCheck(x, y, 0);
-	} else {
-	    return false;
-	}
+
     }
 
     //checks if there is sequence from List x in List y 
-    private boolean rightOrderCheck(List x, List y, int pos) {
+    private boolean rightOrderCheck(List x, List y, int positionInListX) {
 	
 	//if last element is reached, then we can make List x from List y
 	//this check prevents IndexOutOfBoundsException
-	if (pos >= x.size() - 1)
+	if (positionInListX >= x.size() - 1)
 	    return true;
 	
-	if (y.indexOf(x.get(pos)) != -1 
+	if (y.indexOf(x.get(positionInListX)) != -1 
 		//check if elements in may be placed in right order
-		&& y.indexOf(x.get(pos)) < y.lastIndexOf(x.get(pos + 1))) {
+		&& y.indexOf(x.get(positionInListX)) < y.lastIndexOf(x.get(positionInListX + 1))) {
 	    //if so, create new smaller list and perform rightOrderCheck on it
-	    return rightOrderCheck(x, y.subList(y.indexOf(x.get(pos)) + 1, y.size()), pos + 1);
+	    return rightOrderCheck(x, y.subList(y.indexOf(x.get(positionInListX)) + 1, y.size()), positionInListX + 1);
 	} else {
 	    return false;
 	}

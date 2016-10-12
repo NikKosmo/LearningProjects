@@ -66,7 +66,7 @@ public class CalculatorImpl implements Calculator {
 	    double result = RPNtoDouble(inputRPN);
 	    
 	    //round result if needed
-	    answer = String.valueOf(new BigDecimal(result).setScale(4, RoundingMode.UP).doubleValue());
+	    answer = String.valueOf(new BigDecimal(result).setScale(4, RoundingMode.DOWN).doubleValue());
 	} catch (Exception e) {
 	    System.out.println(e);
 	    return null;
@@ -128,31 +128,28 @@ public class CalculatorImpl implements Calculator {
 		// Token is an operator: pop top two entries
 		Double d2 = Double.valueOf(stack.pop());
 		Double d1 = Double.valueOf(stack.pop());
-
-		// Get the result
-		double result = 0.0;
-		switch (token) {
-		case "*":
-		    result = d1 * d2;
-		    break;
-		case "/":
-		    if (d2 == 0)
-			throw new ArithmeticException();
-		    result = d1 / d2;
-		    break;
-		case "+":
-		    result = d1 + d2;
-		    break;
-		case "-":
-		    result = d1 - d2;
-		    break;
-		}
-		// Push result onto stack
-		stack.push(String.valueOf(result));
+		
+		stack.push(String.valueOf(calculate(d1, d2, token)));
 	    }
 	}
 
 	return Double.valueOf(stack.pop());
+    }
+    
+    private static double calculate(double d1, double d2, String sign) {
+	switch (sign) {
+	case "*":
+	    return d1 * d2;
+	case "/":
+	    if (d2 == 0)
+		throw new ArithmeticException();
+	    return d1 / d2;
+	case "+":
+	    return d1 + d2;
+	case "-":
+	    return d1 - d2;
+	}
+	return 0/0;
     }
 
 }
