@@ -136,7 +136,7 @@ public class CalculatorImpl implements Calculator {
 	return Double.valueOf(stack.pop());
     }
     
-    private static double calculate(double d1, double d2, String sign) {
+    private static double calculateSimple(double d1, double d2, String sign) {
 	switch (sign) {
 	case "*":
 	    return d1 * d2;
