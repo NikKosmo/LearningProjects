@@ -23,6 +23,9 @@ public class SubsequenceImpl implements Subsequence {
 	    return rightOrderCheck(x, y, 0);
 
     }
+    
+    //TO DO:
+    //Check List x from both sides
 
     //checks if there is sequence from List x in List y 
     private boolean rightOrderCheck(List x, List y, int positionInListX) {

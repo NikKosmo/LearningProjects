@@ -78,7 +78,7 @@ public class CalculatorImpl implements Calculator {
     private String[] splitInput(String input) {
 	
 	// TO DO:
-	// transform ("-" + "n") to "-n"
+	// right representation of negative numbers. "(" + "-" + "n" + ")" should be "(" + "-n" + ")"
 	// transform (")" + "n") to ")*n" same for ("(" + "n")
 	
 	return input.split("(?<=[\\-+*/=()])|(?=[()\\-+*/=])");
